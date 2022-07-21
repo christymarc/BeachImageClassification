@@ -1,7 +1,7 @@
 # BeachImageClassification
 Creating a deep learning model that classifies beach into "clean" or "dirty" categories.
 
-Images from dataset collected via Google Image search and JavaScript url scraping. Tutorial to url scrape: https://pyimagesearch.com/2017/12/04/how-to-create-a-deep-learning-dataset-using-google-images/. JavaScript methods working as of July 21, 2022.
+Images from dataset collected via Google Image search and JavaScript url scraping. Clean beach data collected through Google search of "beach", and dirty beach data collected through Google search of "dirty beach". Tutorial to url scrape: https://pyimagesearch.com/2017/12/04/how-to-create-a-deep-learning-dataset-using-google-images/. JavaScript methods working as of July 21, 2022.
 
 To save images of a google search: 
 - scroll-past/load-in all images in Google you'd like to save into the dataset
