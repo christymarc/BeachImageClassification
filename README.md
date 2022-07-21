@@ -82,7 +82,7 @@ function createDownload( contents ) {
     var hiddenElement = document.createElement( 'a' );
     hiddenElement.href = 'data:attachment/text,' + encodeURI( contents );
     hiddenElement.target = '_blank';
-    hiddenElement.download = 'urls.txt';
+    hiddenElement.download = 'urls.csv';
     hiddenElement.click();
 }
 
@@ -132,7 +132,7 @@ function grabUrls() {
  * Call the main function to grab the URLs and initiate the download
  */
 grabUrls().then( function( urls ) {
-    urls = urls.join( '\n' );
+    urls = urls.join( ', ' );
     createDownload( urls );
 } );
 ```
