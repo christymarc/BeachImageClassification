@@ -144,7 +144,7 @@ Once image URLs are collected and loaded as image files into a folder by class, 
 ```
 import os
 import cv2
-import imghdr   # lets you identify what is the image type that is contained in a file, byte stream or path-like object
+import imghdr   # lets you identify what is the image type contained in file, byte stream or path-like object
 
 def check_images(s_dir, ext_list):
     bad_images=[]
