@@ -136,3 +136,53 @@ grabUrls().then( function( urls ) {
     createDownload( urls );
 } );
 ```
+
+Once image URLs are collected and loaded into a folder by class, it is VERY IMPORTANT to validate images. If no validation is done, Keras, FastAI, and every other deep learning framework gets very mad. Here's what I did (and this is in the BeachImageClassification notebook as well):
+    - Note: this code is in Python and is based off the comments of this StackOverflow post -> https://stackoverflow.com/questions/65438156/tensorflow-keras-error-unknown-image-file-format-one-of-jpeg-png-gif-bmp-re
+
+```
+def check_images(s_dir, ext_list):
+    bad_images=[]
+    bad_ext=[]
+    s_list= os.listdir(s_dir)
+    for klass in s_list:
+        klass_path=os.path.join (s_dir, klass)
+        print ('processing class directory ', klass)
+        if os.path.isdir(klass_path):
+            file_list=os.listdir(klass_path)
+            for f in file_list:               
+                f_path=os.path.join (klass_path,f)
+                tip = imghdr.what(f_path)
+                if ext_list.count(tip) == 0:
+                  bad_images.append(f_path)
+                if os.path.isfile(f_path):
+                    try:
+                        img=cv2.imread(f_path)
+                        shape=img.shape
+                    except:
+                        print('file ', f_path, ' is not a valid image file')
+                        bad_images.append(f_path)
+                else:
+                    print('*** fatal error, you a sub directory ', f, ' in class directory ', klass)
+        else:
+            print ('*** WARNING*** you have files in ', s_dir, ' it should only contain sub directories')
+    return bad_images, bad_ext
+
+source_dir =r'/content/data'
+good_exts=['jpg', 'png', 'jpeg', 'gif', 'bmp' ] # list of acceptable extensions
+bad_file_list, bad_ext_list=check_images(source_dir, good_exts)
+if len(bad_file_list) !=0:
+    print('improper image files are listed below')
+    for i in range (len(bad_file_list)):
+        print(bad_file_list[i])
+        # Load image
+        image = cv2.imread(bad_file_list[i])
+        if (image is not None):
+          # Save as proper .jpg image
+          cv2.imwrite(bad_file_list[i], image, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
+        elif (os.path.exists(bad_file_list[i])):
+          os.remove(bad_file_list[i])
+          print("deleted file: " + bad_file_list[i])
+else:
+    print(' no improper image files were found')
+```
