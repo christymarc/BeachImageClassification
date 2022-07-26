@@ -138,10 +138,14 @@ grabUrls().then( function( urls ) {
 ```
 
 
-Once image URLs are collected and loaded as image files into a folder by class, it is VERY IMPORTANT to validate images. If no validation is done, Keras, FastAI, and every other deep learning framework gets very mad. Here's what I did (and this is in the BeachImageClassification notebook as well):
+Once image URLs are collected and loaded as image files into a folder by class, it is VERY IMPORTANT to validate images. If no validation is done, Keras, FastAI, and every other deep learning framework gets very upsetti (spaghetti). Here's what I did (and this is in the BeachImageClassification notebook as well):
     - Note: this code is in Python and is based off the comments of this StackOverflow post -> https://stackoverflow.com/questions/65438156/tensorflow-keras-error-unknown-image-file-format-one-of-jpeg-png-gif-bmp-re
 
 ```
+import os
+import cv2
+import imghdr   # lets you identify what is the image type that is contained in a file, byte stream or path-like object
+
 def check_images(s_dir, ext_list):
     bad_images=[]
     bad_ext=[]
@@ -153,9 +157,11 @@ def check_images(s_dir, ext_list):
             file_list=os.listdir(klass_path)
             for f in file_list:               
                 f_path=os.path.join (klass_path,f)
+                # This is our 'bad' image check - gets image type
                 tip = imghdr.what(f_path)
                 if ext_list.count(tip) == 0:
                   bad_images.append(f_path)
+                # Another check to see if the image can be opened/read in
                 if os.path.isfile(f_path):
                     try:
                         img=cv2.imread(f_path)
@@ -169,6 +175,7 @@ def check_images(s_dir, ext_list):
             print ('*** WARNING*** you have files in ', s_dir, ' it should only contain sub directories')
     return bad_images, bad_ext
 
+# Location of your data classes
 source_dir =r'/content/data'
 good_exts=['jpg', 'png', 'jpeg', 'gif', 'bmp' ] # list of acceptable extensions
 bad_file_list, bad_ext_list=check_images(source_dir, good_exts)
@@ -182,6 +189,7 @@ if len(bad_file_list) !=0:
           # Save as proper .jpg image
           cv2.imwrite(bad_file_list[i], image, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
         elif (os.path.exists(bad_file_list[i])):
+          # Delete image if the file exists but is a None image type -> aka can't be converted to a jpg
           os.remove(bad_file_list[i])
           print("deleted file: " + bad_file_list[i])
 else:
