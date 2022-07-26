@@ -137,7 +137,8 @@ grabUrls().then( function( urls ) {
 } );
 ```
 
-Once image URLs are collected and loaded into a folder by class, it is VERY IMPORTANT to validate images. If no validation is done, Keras, FastAI, and every other deep learning framework gets very mad. Here's what I did (and this is in the BeachImageClassification notebook as well):
+
+Once image URLs are collected and loaded as image files into a folder by class, it is VERY IMPORTANT to validate images. If no validation is done, Keras, FastAI, and every other deep learning framework gets very mad. Here's what I did (and this is in the BeachImageClassification notebook as well):
     - Note: this code is in Python and is based off the comments of this StackOverflow post -> https://stackoverflow.com/questions/65438156/tensorflow-keras-error-unknown-image-file-format-one-of-jpeg-png-gif-bmp-re
 
 ```
