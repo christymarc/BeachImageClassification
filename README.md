@@ -1,6 +1,7 @@
 # BeachImageClassification
 Creating a deep learning model that classifies beach into "clean" or "dirty" categories.
 
+## Web Scraping
 Images from dataset collected via Google Image search and JavaScript url scraping. Clean beach data collected through Google search of "beach", and dirty beach data collected through Google search of "dirty beach". Tutorial to url scrape: https://pyimagesearch.com/2017/12/04/how-to-create-a-deep-learning-dataset-using-google-images/. JavaScript methods working as of July 21, 2022.
 
 To save images of a google search: 
@@ -137,7 +138,7 @@ grabUrls().then( function( urls ) {
 } );
 ```
 
-
+## Validating Images
 Once image URLs are collected and loaded as image files into a folder by class, it is VERY IMPORTANT to validate images. If no validation is done, Keras, FastAI, and every other deep learning framework gets very upsetti (spaghetti). Here's what I did (and this is in the BeachImageClassification notebook as well):
     - Note: this code is in Python and is based off the comments of this StackOverflow post -> https://stackoverflow.com/questions/65438156/tensorflow-keras-error-unknown-image-file-format-one-of-jpeg-png-gif-bmp-re
 
@@ -195,3 +196,6 @@ if len(bad_file_list) !=0:
 else:
     print(' no improper image files were found')
 ```
+
+## The Model
+The model is a Keras model that utilizes a pretrained MobileNetV2 (https://arxiv.org/abs/1801.04381). I used https://www.tensorflow.org/tutorials/images/transfer_learning as a guide for implementation. After finetuning, the model achieved a validation accuracy of 89.13%. On a test set of 20 images, it achieved an accuracy of 95%. The model is available via the saved_model.zip.
