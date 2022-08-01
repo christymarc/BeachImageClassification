@@ -4,7 +4,7 @@ Creating a deep learning model that classifies beach into "clean" or "dirty" cat
 ## The Model
 The model is a Keras model that utilizes a pretrained MobileNetV2 (https://arxiv.org/abs/1801.04381). I used https://www.tensorflow.org/tutorials/images/transfer_learning as a guide for implementation. After finetuning, the model achieved a validation accuracy of 89.13%. On a test set of 20 images, it achieved an accuracy of 95%. The model is available via the saved_model.zip.
 
-## Web Scraping
+## The Dataset
 Images from dataset collected via Google Image search and JavaScript url scraping. Clean beach data collected through Google search of "beach", and dirty beach data collected through Google search of "dirty beach". Tutorial to url scrape: https://pyimagesearch.com/2017/12/04/how-to-create-a-deep-learning-dataset-using-google-images/. JavaScript methods working as of July 21, 2022.
 
 To save images of a google search: 
